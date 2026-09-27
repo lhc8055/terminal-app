@@ -24,10 +24,10 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
-          gradle-version: '7.3.3'
+          gradle-version: '7.6.3'
 
       - name: Generate Gradle wrapper
-        run: gradle wrapper --gradle-version 7.3.3
+        run: gradle wrapper --gradle-version 7.6.3
 
       - name: Build debug APK
         run: ./gradlew assembleDebug --no-daemon --stacktrace
