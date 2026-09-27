@@ -4,10 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.togetherWith
+import androidx.compose.animation.with
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -46,6 +47,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 private fun AppRoot() {
     var activeTab by remember { mutableStateOf(DockTab.Home) }
@@ -66,9 +68,8 @@ private fun AppRoot() {
                 AnimatedContent(
                     targetState = activeTab,
                     transitionSpec = {
-                        fadeIn(tween(220)) togetherWith fadeOut(tween(220))
-                    },
-                    label = "tabContent"
+                        fadeIn(tween(220)) with fadeOut(tween(220))
+                    }
                 ) { tab ->
                     when (tab) {
                         DockTab.Home -> HomeScreen()

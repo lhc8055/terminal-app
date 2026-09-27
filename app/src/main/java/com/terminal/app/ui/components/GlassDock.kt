@@ -1,10 +1,7 @@
 package com.terminal.app.ui.components
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -109,6 +106,23 @@ private fun DockItem(
         DockTab.Settings -> Icons.Filled.Settings
     }
 
+    // Pill background cross-fades between inactive (transparent) and active (accent tint).
+    val pillColor by animateColorAsState(
+        targetValue = if (isActive) AccentPrimary.copy(alpha = 0.22f) else Color.Transparent,
+        animationSpec = tween(220),
+        label = "pillColor"
+    )
+    val iconTint by animateColorAsState(
+        targetValue = if (isActive) AccentPrimary else TextMuted,
+        animationSpec = tween(220),
+        label = "iconTint"
+    )
+    val labelColor by animateColorAsState(
+        targetValue = if (isActive) TextPrimary else TextMuted,
+        animationSpec = tween(220),
+        label = "labelColor"
+    )
+
     Box(
         modifier = modifier
             .height(52.dp)
@@ -123,24 +137,18 @@ private fun DockItem(
             verticalArrangement = Arrangement.Center
         ) {
             Box(contentAlignment = Alignment.Center) {
-                // Active pill behind the icon.
-                AnimatedVisibility(
-                    visible = isActive,
-                    enter = fadeIn(spring(stiffness = Spring.StiffnessMediumLow)),
-                    exit = fadeOut(spring(stiffness = Spring.StiffnessMediumLow))
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .width(46.dp)
-                            .height(34.dp)
-                            .clip(CapsuleShape(17.dp, exponent = 4.0f))
-                            .background(AccentPrimary.copy(alpha = 0.22f))
-                    )
-                }
+                // Active pill behind the icon (always present, alpha-animated).
+                Box(
+                    modifier = Modifier
+                        .width(46.dp)
+                        .height(34.dp)
+                        .clip(CapsuleShape(17.dp, exponent = 4.0f))
+                        .background(pillColor)
+                )
                 Icon(
                     imageVector = icon,
                     contentDescription = tab.label,
-                    tint = if (isActive) AccentPrimary else TextMuted,
+                    tint = iconTint,
                     modifier = Modifier
                         .size(iconSize)
                 )
@@ -150,7 +158,7 @@ private fun DockItem(
                 text = tab.label,
                 fontSize = 10.sp,
                 fontWeight = if (isActive) FontWeight.SemiBold else FontWeight.Normal,
-                color = if (isActive) TextPrimary else TextMuted,
+                color = labelColor,
                 maxLines = 1
             )
         }

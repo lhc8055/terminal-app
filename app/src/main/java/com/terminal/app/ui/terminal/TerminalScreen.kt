@@ -177,10 +177,7 @@ fun TerminalScreen(
                     focusedBorderColor = AccentPrimary,
                     unfocusedBorderColor = TextMuted.copy(alpha = 0.3f),
                     cursorColor = AccentPrimary,
-                    focusedTextColor = TermFg,
-                    unfocusedTextColor = TermFg,
-                    focusedPlaceholderColor = TextMuted,
-                    unfocusedPlaceholderColor = TextMuted
+                    textColor = TermFg
                 ),
                 trailingIcon = {
                     IconButton(
