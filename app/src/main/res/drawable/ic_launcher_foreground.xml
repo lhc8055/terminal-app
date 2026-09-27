@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Terminal window glyph -->
+    <path
+        android:fillColor="#5AC8FA"
+        android:pathData="M30,38 L78,38 A6,6 0 0 1 84,44 L84,70 A6,6 0 0 1 78,76 L30,76 A6,6 0 0 1 24,70 L24,44 A6,6 0 0 1 30,38 Z" />
+    <!-- Prompt chevron -->
+    <path
+        android:fillColor="#0B1020"
+        android:pathData="M36,52 L46,58 L36,64 L38,60 L42,58 L38,56 Z" />
+    <!-- Caret underline -->
+    <path
+        android:fillColor="#0B1020"
+        android:pathData="M52,62 L66,62 L66,65 L52,65 Z" />
+</vector>

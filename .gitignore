@@ -1,0 +1,18 @@
+# Gradle / build
+.gradle/
+build/
+app/build/
+*.iml
+.idea/
+local.properties
+.DS_Store
+
+# AIDE
+.aide/
+
+# Keystore (never commit signing keys)
+*.jks
+*.keystore
+
+# Native build artifacts
+.cxx/
