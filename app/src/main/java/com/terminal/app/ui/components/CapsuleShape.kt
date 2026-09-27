@@ -32,14 +32,9 @@ import androidx.compose.ui.geometry.Rect
  * corner-to-edge junctions (G1 continuity), unlike a vanilla [RoundedCornerShape].
  */
 class CapsuleShape(
-    private val cornerRadius: Float,
+    private val cornerRadiusDp: Dp,
     private val exponent: Float = DEFAULT_EXPONENT
 ) : Shape {
-
-    constructor(
-        cornerRadiusDp: Dp,
-        exponent: Float = DEFAULT_EXPONENT
-    ) : this(cornerRadiusDp.value, exponent)
 
     override fun createOutline(
         size: Size,
@@ -52,6 +47,8 @@ class CapsuleShape(
             return Outline.Rectangle(Rect(0f, 0f, w, h))
         }
 
+        // Convert Dp -> px so the corner scales with screen density.
+        val cornerRadius = with(density) { cornerRadiusDp.toPx() }
         val r = cornerRadius.coerceAtMost(minOf(w, h) / 2f)
         val path = Path()
 
@@ -120,6 +117,6 @@ class CapsuleShape(
 
         /** Convenience factory mirroring [androidx.compose.foundation.shape.RoundedCornerShape]. */
         fun fromDp(cornerRadiusDp: Dp, exponent: Float = DEFAULT_EXPONENT): CapsuleShape =
-            CapsuleShape(cornerRadiusDp.value, exponent)
+            CapsuleShape(cornerRadiusDp, exponent)
     }
 }
